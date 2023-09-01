@@ -46,3 +46,9 @@ const options = {
       startBtn.removeAttribute('disabled');
     }
 }
+
+// startBtn.addEventListener('click', onClick)
+
+// const onClick = () => {
+    
+// };
