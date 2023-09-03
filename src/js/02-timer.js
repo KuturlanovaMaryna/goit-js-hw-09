@@ -8,8 +8,21 @@ const daysRef = document.querySelector('[data-days]');
 const hoursRef = document.querySelector('[data-hours]');
 const minutesRef = document.querySelector('[data-minutes]');
 const secondsRef = document.querySelector('[data-seconds]');
+const dateInput = document.querySelector("#datetime-picker");
 let timerId = null;
 
+const options = {
+    enableTime: true,
+    time_24hr: true,
+    defaultDate: new Date(),
+    minuteIncrement: 1,
+  onClose(selectedDates) {
+    if (selectedDates[0] < Date.now()) {
+      Notify.failure('Please choose a date in the future');
+      return;
+    }
+  }
+};
 
 function convertMs(ms) {
   const second = 1000;
@@ -31,54 +44,28 @@ function convertMs(ms) {
 
 const addLeadingZero = value => String(value).padStart(2, 0);
 
-const options = {
-    enableTime: true,
-    time_24hr: true,
-    defaultDate: new Date(),
-    minuteIncrement: 1,
-    onClose(selectedDates) {
-      if (selectedDates[0] < new Date()) {
-        Notify.failure('Please choose a date in the future');
-        return;
-      }
+flatpickr(dateInput, {...options});
+
+startBtn.addEventListener('click', onClick);
+
+const onClick = () => {
+  timerId = setInterval(() => {
+    const targetDate = new Date(dateInput.value);
+  
+    const diffDate = targetDateDate - new Date();
+    const { days, hours, minutes, seconds } = convertMs(diffDate);
+    daysRef.textContent = days;
+    hoursRef.textContent = addLeadingZero(hours);
+    minutesRef.textContent = addLeadingZero(minutes);
+    secondsRef.textContent = addLeadingZero(seconds);
+
+    if (diffDate < 1000) {
+      clearInterval(intervalId);
+    }
+  }, 1000);
+ 
+  }
 
 
-      const showTimer = () => {
-      const todaysDate = new Date();
-      localStorage.setItem('selectedData', selectedDates[0]);
-      const selectData = new Date(localStorage.getItem('selectedData'));
-
-      if (!selectData) return;
-
-      const diffDate = selectData - todaysDate;
-      const { days, hours, minutes, seconds } = convertMs(diffDate);
-      daysRef.textContent = days;
-      hoursRef.textContent = addLeadingZero(hours);
-      minutesRef.textContent = addLeadingZero(minutes);
-      secondsRef.textContent = addLeadingZero(seconds);
-
-      if (
-        daysRef.textContent === '0' &&
-        hoursRef.textContent === '00' &&
-        minutesRef.textContent === '00' &&
-        secondsRef.textContent === '00'
-      ) {
-        clearInterval(timerId);
-      }
-    };
-
-    const onClick = () => {
-      if (timerId) {
-        clearInterval(timerId);
-      }
-      showTimer();
-      timerId = setInterval(showTimer, 1000);
-    };
-
-    startBtn.addEventListener('click', onClick);
-  },
-};
-
-flatpickr('#datetime-picker', { ...options });
 
 
