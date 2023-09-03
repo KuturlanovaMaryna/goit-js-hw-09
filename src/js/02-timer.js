@@ -63,9 +63,5 @@ const onClick = () => {
       clearInterval(intervalId);
     }
   }, 1000);
- 
+
   }
-
-
-
-
