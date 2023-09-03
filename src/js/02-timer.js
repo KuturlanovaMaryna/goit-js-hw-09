@@ -45,13 +45,12 @@ const addLeadingZero = value => String(value).padStart(2, 0);
 
 flatpickr(dateInput, {...options});
 
-startBtn.addEventListener('click', onClick);
-
-const onClick = () => {
+  
+ startBtn.addEventListener('click', () => {
   timerId = setInterval(() => {
     const targetDate = new Date(dateInput.value);
   
-    const diffDate = targetDateDate - new Date();
+    const diffDate = targetDate - new Date();
     const { days, hours, minutes, seconds } = convertMs(diffDate);
     daysRef.textContent = days;
     hoursRef.textContent = addLeadingZero(hours);
@@ -63,4 +62,5 @@ const onClick = () => {
     }
   }, 1000);
 
-  }
+ 
+});
