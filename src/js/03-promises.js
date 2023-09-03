@@ -1,4 +1,3 @@
-import '../css/common.css';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 
