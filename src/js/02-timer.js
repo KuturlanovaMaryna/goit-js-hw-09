@@ -58,7 +58,7 @@ flatpickr(dateInput, {...options});
     secondsRef.textContent = addLeadingZero(seconds);
 
     if (diffDate < 1000) {
-      clearInterval(intervalId);
+      clearInterval(timerId);
     }
   }, 1000);
 
